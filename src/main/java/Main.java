@@ -100,21 +100,10 @@ class Interpolation {
     }
 
     public void showResult(List<XYSeries> listSeries, String graphName) {
-//        XYSeries series = new XYSeries("interpolation", false);
-//
-//        for(int i = 0; i < xCoordinates.size(); i++){
-//            series.add(xCoordinates.get(i), yCoordinates.get(i));
-//        }
-
         XYSeriesCollection xyDataset = new XYSeriesCollection();
         for (XYSeries series : listSeries) {
             xyDataset.addSeries(series);
         }
-//        series = new XYSeries("in", false);
-//        for(int i = 0; i < xCoordinates.size(); i++){
-//            series.add(i, yCoordinates.get(i));
-//        }
-//        xyDataset.addSeries(series);
         JFreeChart chart = ChartFactory
                 .createXYLineChart(graphName, "x", "y",
                         xyDataset,
