@@ -9,6 +9,8 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -109,6 +111,11 @@ class Interpolation {
                         xyDataset,
                         PlotOrientation.VERTICAL,
                         true, true, true);
+        // для отображения точек
+        XYPlot plot = chart.getXYPlot();
+        MyRenderer renderer = new MyRenderer();
+        plot.setRenderer(renderer);
+
         JFrame frame =
                 new JFrame("Chart");
         // Помещаем график на фрейм
@@ -116,6 +123,19 @@ class Interpolation {
                 .add(new ChartPanel(chart));
         frame.setSize(800,800);
         frame.show();
+    }
+
+    private static class MyRenderer extends XYLineAndShapeRenderer {
+
+        @Override
+        public boolean getItemShapeVisible(int series, int item) {
+            if (item % COUNT_SUBSEGMENT == 0) {
+                return super.getItemShapeVisible(series, item);
+            }
+            else {
+                return false;
+            }
+        }
     }
 
     public List<Double> fillXCoordinatesCorrect(int index, Integer countSubsegment) {
